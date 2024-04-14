@@ -38,16 +38,26 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: switch (index) {
               null => [
-                  ElevatedButton(onPressed: () => _start(), child: const Text("Start")),
+                  ElevatedButton(onPressed: _start, child: const Text("Start")),
                 ],
               count => [
                   Text("${_sum()}", style: textTheme.displayLarge),
-                  ElevatedButton(
-                      onPressed: () {
-                        _init();
-                        _start();
-                      },
-                      child: const Text("New")),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          _init();
+                          _start();
+                        },
+                        child: const Text("New"),
+                      ),
+                      ElevatedButton(
+                        onPressed: _restart,
+                        child: const Text("Again"),
+                      ),
+                    ],
+                  )
                 ],
               _ => [
                   Column(
@@ -64,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ElevatedButton(onPressed: index == 0 ? null : () => _next(-1), child: const Icon(Icons.arrow_left)),
                       ElevatedButton(onPressed: _pause, child: Icon(paused ? Icons.pause : Icons.play_arrow)),
                       ElevatedButton(onPressed: index == nums.length - 1 ? null : _next, child: const Icon(Icons.arrow_right)),
-                      ElevatedButton(onPressed: _init, child: const Icon(Icons.fast_forward)),
+                      ElevatedButton(onPressed: _end, child: const Icon(Icons.fast_forward)),
                     ],
                   ),
                 ]
@@ -73,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _pause() {
+  void _pause() async {
     setState(() {
       paused = !paused;
       counter = const Duration(seconds: time);
@@ -81,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (paused) {
       _stopTimer();
     } else {
+      await sayNumber(nums[index!]);
       _startTimer();
     }
   }
@@ -141,6 +152,14 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       nums = generateNums(count: count);
       index = null;
+      counter = Duration.zero;
+    });
+  }
+
+  void _end() {
+    _stopTimer();
+    setState(() {
+      index = nums.length;
       counter = Duration.zero;
     });
   }
