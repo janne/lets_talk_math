@@ -45,5 +45,9 @@
     <true/>
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>Let's Talk Math uses speech recognition to help users solve math problems.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Let's Talk Math uses the microphone to help users solve math problems.</string>
   </dict>
 </plist>
