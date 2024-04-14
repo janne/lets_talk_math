@@ -13,7 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 const count = 10;
-const time = 7;
+const time = 6;
 
 class _MyHomePageState extends State<MyHomePage> {
   late List<int> nums;
@@ -46,15 +46,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
+                        onPressed: _restart,
+                        child: const Icon(Icons.fast_rewind),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _next(-1),
+                        child: const Icon(Icons.arrow_left),
+                      ),
+                      ElevatedButton(
                         onPressed: () {
                           _init();
                           _start();
                         },
                         child: const Text("New"),
-                      ),
-                      ElevatedButton(
-                        onPressed: _restart,
-                        child: const Text("Again"),
                       ),
                     ],
                   )
@@ -73,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ElevatedButton(onPressed: _restart, child: const Icon(Icons.fast_rewind)),
                       ElevatedButton(onPressed: index == 0 ? null : () => _next(-1), child: const Icon(Icons.arrow_left)),
                       ElevatedButton(onPressed: _pause, child: Icon(paused ? Icons.pause : Icons.play_arrow)),
-                      ElevatedButton(onPressed: index == nums.length - 1 ? null : _next, child: const Icon(Icons.arrow_right)),
+                      ElevatedButton(onPressed: _next, child: const Icon(Icons.arrow_right)),
                       ElevatedButton(onPressed: _end, child: const Icon(Icons.fast_forward)),
                     ],
                   ),
@@ -131,7 +135,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _next([int step = 1]) async {
-    if (index! == nums.length) return;
     _stopTimer();
     setState(() {
       index = index! + step;
