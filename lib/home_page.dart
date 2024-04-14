@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:dart_openai/dart_openai.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lets_talk_math/math.dart';
 import 'package:lets_talk_math/speech.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -26,7 +24,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    OpenAI.apiKey = dotenv.env['OPEN_AI_API_KEY']!;
     say("Let's talk math!");
     _init();
     super.initState();
@@ -36,10 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(onPressed: _restart, icon: const Icon(Icons.restart_alt)),
-        title: const Text("Let's talk math!"),
-      ),
       body: Center(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
