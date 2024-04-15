@@ -13,7 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 const count = 10;
-const time = 6;
+const time = 5;
 
 class _MyHomePageState extends State<MyHomePage> {
   late List<int> nums;
