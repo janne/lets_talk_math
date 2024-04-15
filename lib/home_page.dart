@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _pause() async {
+  void _pause() {
     setState(() {
       paused = !paused;
       counter = const Duration(seconds: time);
@@ -95,8 +95,8 @@ class _MyHomePageState extends State<MyHomePage> {
     if (paused) {
       _stopTimer();
     } else {
-      await sayNumber(nums[index!]);
       _startTimer();
+      sayNumber(nums[index!]);
     }
   }
 
@@ -125,24 +125,24 @@ class _MyHomePageState extends State<MyHomePage> {
     WakelockPlus.enable();
   }
 
-  void _start() async {
+  void _start() {
     setState(() {
       index = 0;
       counter = const Duration(seconds: time);
     });
-    await sayNumber(nums[index!]);
     _startTimer();
+    sayNumber(nums[index!]);
   }
 
-  void _next([int step = 1]) async {
+  void _next([int step = 1]) {
     _stopTimer();
     setState(() {
       index = index! + step;
       counter = const Duration(seconds: time);
     });
     if (index! < nums.length) {
-      await sayNumber(nums[index!]);
       _startTimer();
+      sayNumber(nums[index!]);
     } else {
       say("Done! The sum is ${_sum()}.");
     }
@@ -167,12 +167,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _restart() async {
+  void _restart() {
     setState(() {
       index = 0;
       counter = const Duration(seconds: time);
     });
     _startTimer();
-    await sayNumber(nums[index!]);
+    sayNumber(nums[index!]);
   }
 }
